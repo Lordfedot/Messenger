@@ -1,13 +1,13 @@
-
 import LoginForm from "@/components/auth/loginForm";
+import RegisterForm from "@/components/auth/registerForm";
 import { Social } from "@/components/auth/social";
 import Link from "next/link";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-        <LoginForm />
+        <RegisterForm />
 
         <div className="mt-6">
           <div className="relative">
@@ -24,9 +24,9 @@ const LoginPage = () => {
           <Social />
 
           <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
-            <p>New to Messenger?</p>
-            <Link href="/auth/register" className="underline cursor-pointer">
-              Create an account
+            <p>Already have an account?</p>
+            <Link href="/auth/login" className="underline cursor-pointer">
+              Sign in
             </Link>
           </div>
         </div>
@@ -35,4 +35,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
