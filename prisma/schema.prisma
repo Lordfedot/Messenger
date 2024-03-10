@@ -29,8 +29,17 @@ model User {
   seenMessageIds String[]  @db.ObjectId
   seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
 
+  sessions Session[]
   accounts Account[]
   messages Message[]
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
