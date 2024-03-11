@@ -29,10 +29,8 @@ export default authMiddleware((req) => {
     return;
   }
 
-  console.log(!isLoggedIn && !isPublicRoute);
-
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL("/auth", nextUrl));
+    return Response.redirect(new URL("/auth/login", nextUrl));
   }
 
   return;

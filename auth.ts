@@ -7,6 +7,8 @@ import client from "@/lib/prismadb";
 export const {
   handlers: { GET, POST },
   auth,
+  signIn,
+  signOut,
 } = NextAuth({
   adapter: PrismaAdapter(client),
   session: { strategy: "jwt" },
