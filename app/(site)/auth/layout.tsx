@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import BackButton from "@/components/back-button";
+
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
@@ -18,6 +20,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tighter text-gray-900">
           Sign in to your account
         </h2>
+        <BackButton />
       </div>
       {children}
     </div>
