@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,6 +22,7 @@ import FormSuccess from "@/components/form-success";
 import { register } from "@/actions/register";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -43,23 +45,21 @@ const RegisterForm = () => {
       setError(error);
       setSuccess(success);
     });
+
+    router.push("/auth/login");
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
+        <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  disabled={isPending}
-                  placeholder="John Doe"
-                  {...field}
-                />
+                <Input disabled={isPending} placeholder="John Doe" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -104,7 +104,7 @@ const RegisterForm = () => {
         <FormSuccess message={success} />
         <FormError message={error} />
         <Button disabled={isPending} className="w-full" type="submit">
-          Login
+          Register
         </Button>
       </form>
     </Form>
