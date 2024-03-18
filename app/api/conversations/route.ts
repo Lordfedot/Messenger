@@ -1,10 +1,10 @@
-import useCurrentUser from "@/hooks/useCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import client from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const currentUser = await useCurrentUser();
+    const currentUser = await getCurrentUser();
     const body = await request.json();
     const { userId, isGroup, members, name } = body;
 

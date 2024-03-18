@@ -1,9 +1,9 @@
 import Sidebar from "@/components/sidebar/sidebar";
 import UserList from "@/components/users/users-list";
-import useUsers from "@/hooks/useUsers";
+import getUsers from "@/actions/getUsers";
 
 const UsersLayout = async ({ children }: { children: React.ReactNode }) => {
-  const users = await useUsers();
+  const users = await getUsers();
   return (
     <Sidebar>
       <div className="h-full">

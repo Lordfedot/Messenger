@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import client from "@/lib/prismadb";
 
-const useCurrentUser = async () => {
+const getCurrentUser = async () => {
   try {
     const session = await auth();
 
@@ -23,4 +23,4 @@ const useCurrentUser = async () => {
   }
 };
 
-export default useCurrentUser;
+export default getCurrentUser;

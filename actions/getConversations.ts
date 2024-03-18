@@ -1,8 +1,8 @@
 import client from "@/lib/prismadb";
-import useCurrentUser from "./useCurrentUser";
+import getCurrentUser from "./getCurrentUser";
 
-const useConversations = async () => {
-  const currentUser = await useCurrentUser();
+const getConversations = async () => {
+  const currentUser = await getCurrentUser();
 
   if (!currentUser?.email) {
     return [];
@@ -35,4 +35,4 @@ const useConversations = async () => {
   }
 };
 
-export default useConversations;
+export default getConversations;

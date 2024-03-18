@@ -1,13 +1,13 @@
 import ConversationList from "@/components/conversations/conversation-list";
 import Sidebar from "@/components/sidebar/sidebar";
-import useConversations from "@/hooks/useConversations";
+import getConversations from "@/actions/getConversations";
 
 const ConversationsLayout = async ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const conversations = await useConversations();
+  const conversations = await getConversations();
   return (
     <Sidebar>
       <div className="h-full">
