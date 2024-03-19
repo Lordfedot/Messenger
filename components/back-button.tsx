@@ -4,10 +4,14 @@ import { BsArrow90DegLeft } from "react-icons/bs";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
-const BackButton = () => {
+interface BackButtonProps {
+  href?: string;
+}
+
+const BackButton = ({ href = "/" }: BackButtonProps) => {
   const router = useRouter();
   const onClick = () => {
-    router.push("/");
+    router.push(href);
   };
   return (
     <Button

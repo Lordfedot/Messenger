@@ -1,4 +1,5 @@
 import client from "@/lib/prismadb";
+import { FullMessageType } from "@/types";
 
 const getMessages = (conversationId: string) => {
   try {
@@ -16,7 +17,7 @@ const getMessages = (conversationId: string) => {
     });
     return messages;
   } catch (error) {
-    return null;
+    return [];
   }
 };
 
