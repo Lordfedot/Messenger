@@ -10,6 +10,7 @@ import { BsTrash } from "react-icons/bs";
 import Avatar from "../avatar";
 import Modal from "../modal";
 import ConfirmModal from "../confirm-modal";
+import AvatarGroup from "../group-avatar";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -39,22 +40,20 @@ const ProfileDrawer = ({ data, isOpen, onClose }: ProfileDrawerProps) => {
   }, [data.isGroup, data.users.length]);
   return (
     <>
-      <ConfirmModal isOpen={confirmOpen} onClose={() => setConfirmOpen(false)}/>
-       
+      <ConfirmModal
+        isOpen={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+      />
+
       <Drawer open={isOpen} direction="right" onOpenChange={onClose}>
         <DrawerContent className="h-full lg:w-2/5 md:w-3/5 sm:w-4/5 ml-auto rounded-none">
           <div className="flex h-full  flex-col bg-white py-6 shadow-xl">
             <div className="px-4 sm:px-6">
               <div className="flex items-start justify-end">
                 <div className="ml-3 flex h-7 items-center">
-                  <DrawerClose>
-                    <button
-                      type="button"
-                      className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      <span className="sr-only">Close panel</span>
-                      <MdClose size={24} aria-hidden="true" />
-                    </button>
+                  <DrawerClose className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <span className="sr-only">Close panel</span>
+                    <MdClose size={24} aria-hidden="true" />
                   </DrawerClose>
                 </div>
               </div>
@@ -62,7 +61,13 @@ const ProfileDrawer = ({ data, isOpen, onClose }: ProfileDrawerProps) => {
 
             <div className="relative mt-6 flex-1 px-4 sm:px-6">
               <div className="flex flex-col items-center">
-                <Avatar user={otherUser} />
+
+
+                {data.isGroup ? (
+                  <AvatarGroup users={data.users} />
+                ) : (
+                  <Avatar user={otherUser} />
+                )}
                 <p className="font-medium">{title}</p>
                 <p className="text-sm text-gray-500">{statusText}</p>
                 <div className="flex gap-10 my-8">

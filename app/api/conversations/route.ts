@@ -1,5 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import client from "@/lib/prismadb";
+import { pusherServer } from "@/lib/pusher";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -7,6 +8,8 @@ export async function POST(request: Request) {
     const currentUser = await getCurrentUser();
     const body = await request.json();
     const { userId, isGroup, members, name } = body;
+
+    console.log(body);
 
     if (!currentUser?.id || !currentUser.email) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -23,10 +26,12 @@ export async function POST(request: Request) {
           isGroup,
           users: {
             connect: [
-              ...members.map((member: { value: string }) => ({
-                id: member.value,
+              ...members.map((member: string) => ({
+                id: member,
               })),
-              { id: currentUser.id },
+              {
+                id: currentUser.id,
+              },
             ],
           },
         },
@@ -35,7 +40,13 @@ export async function POST(request: Request) {
         },
       });
 
-      return newConversation;
+      newConversation.users.forEach((user) => {
+        if (user.email) {
+          pusherServer.trigger(user.email, "conversation:new", newConversation);
+        }
+      });
+
+      return NextResponse.json(newConversation);
     }
 
     const existingConversations = await client.conversation.findMany({
@@ -69,8 +80,13 @@ export async function POST(request: Request) {
       include: { users: true },
     });
 
+    newConversation.users.forEach((user) => {
+      if (user.email) {
+        pusherServer.trigger(user.email, "conversation:new", newConversation);
+      }
+    });
+
     return NextResponse.json(newConversation);
-    
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }
