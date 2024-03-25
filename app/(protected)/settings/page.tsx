@@ -5,6 +5,10 @@ import SettingsForm from "@/components/settings/settings-form";
 const SettingsPage = async () => {
   const currentUser = await getCurrentUser();
 
+  if(!currentUser){
+    return null
+  }
+
   return (
     <div className="h-full p-12">
       <BackButton href="/conversations"/>
