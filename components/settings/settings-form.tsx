@@ -46,7 +46,7 @@ const SettingsForm = ({ currentUser }: SettingsFormProps) => {
     try {
       await axios.post("/api/settings", data);
       router.refresh();
-      toast.success("Success")
+      toast.success("Success");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -81,9 +81,7 @@ const SettingsForm = ({ currentUser }: SettingsFormProps) => {
                     width={48}
                     height={48}
                     className="rounded-full"
-                    src={
-                      image || currentUser.image || "/images/placeholder.jpg"
-                    }
+                    src={currentUser.image || "/images/placeholder.jpg"}
                     alt="Avatar"
                   />
                   <CldUploadButton
